@@ -1,0 +1,10 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27021/withdraw-deposit
+  application:
+    name: withdraw-deposit-service
+  cloud:
+    config:
+      #enabled: true
+      uri: http://localhost:8081
