@@ -11,15 +11,13 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class BankAccount {
+public class MovementBankAccount {
 
     private String id;
-    private String type; // Ahorro, corriente o fijo
-    private String numberAccount; //NúmeroDeCuenta
-    private String idCustomer; //Id del cliente
-    private String codProfile; //Codigo de perfil del cliente
-    private Float balance; //Saldo
+    private String description;
+    private Float amount;
     private Date date;
     private Boolean status;
+    private String numberAccount;
 
 }
