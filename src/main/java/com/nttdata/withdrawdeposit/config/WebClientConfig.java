@@ -2,7 +2,6 @@ package com.nttdata.withdrawdeposit.config;
 
 import com.nttdata.withdrawdeposit.model.BankAccount;
 import com.nttdata.withdrawdeposit.model.MovementBankAccount;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.BodyInserters;

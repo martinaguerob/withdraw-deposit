@@ -2,6 +2,5 @@ package com.nttdata.withdrawdeposit.service;
 
 @FunctionalInterface
 public interface Calculate {
-
-    Float Calcular(Float monto, Float saldo);
+    Double Calcular(Double monto, Double saldo);
 }

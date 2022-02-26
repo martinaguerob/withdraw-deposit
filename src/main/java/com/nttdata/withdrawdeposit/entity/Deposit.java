@@ -14,7 +14,7 @@ public class Deposit {
 
     @Id
     private String id;
-    private Float amount;
+    private Double amount;
     private String idBankAccount;
     private Date date;
     private Boolean status;

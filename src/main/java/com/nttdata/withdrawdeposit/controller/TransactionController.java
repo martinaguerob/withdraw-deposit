@@ -1,6 +1,5 @@
 package com.nttdata.withdrawdeposit.controller;
 
-import com.netflix.discovery.converters.Auto;
 import com.nttdata.withdrawdeposit.entity.Deposit;
 import com.nttdata.withdrawdeposit.entity.Withdraw;
 import com.nttdata.withdrawdeposit.model.BankAccount;
@@ -14,7 +13,7 @@ import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/transaction")
-public class WithdrawController {
+public class TransactionController {
 
     @Autowired
     WithdrawService withdrawService;
@@ -32,16 +31,31 @@ public class WithdrawController {
     @PostMapping("/withdraw")
     @ResponseStatus(HttpStatus.CREATED)
     public Mono<Withdraw> saveWithdraw(@RequestBody Withdraw withdraw){
+        System.out.println("Se guarda un retiro");
         return withdrawService.save(withdraw);
     }
 
-    @GetMapping("/withdraw/account/{id}")
+    @GetMapping("/withdraw/account/data/{idBankAccount}")
     @ResponseStatus(HttpStatus.OK)
-    public Mono<BankAccount>getWithdrawByBankAccount(@PathVariable String id){
-        System.out.println("Listar retiros de id");
-        return withdrawService.getAccount(id);
+    public Mono<BankAccount>getBankAccount(@PathVariable String idBankAccount){
+        System.out.println("Ver datos de la cuenta");
+        return withdrawService.getAccount(idBankAccount);
     }
 
+    @GetMapping("/withdraw/account/{idBankAccount}")
+    @ResponseStatus(HttpStatus.OK)
+    public Flux<Withdraw>getWithdrawByBankAccount(@PathVariable String idBankAccount){
+        System.out.println("Ver retiros de la cuenta");
+        return withdrawService.findByIdBankAccount(idBankAccount);
+    }
+
+
+    @GetMapping("/withdraw/count/{idBankAccount}")
+    @ResponseStatus(HttpStatus.OK)
+    public Mono<Long> getCountWithdraw(@PathVariable String idBankAccount){
+        System.out.println("Contar número de retiros");
+        return withdrawService.countWithdrawPerMonth(idBankAccount);
+    }
 
     @GetMapping("/deposit")
     @ResponseStatus(HttpStatus.OK)
@@ -62,4 +76,6 @@ public class WithdrawController {
         System.out.println("Listar retiros de id");
         return depositService.getAccount(id);
     }
+
+
 }

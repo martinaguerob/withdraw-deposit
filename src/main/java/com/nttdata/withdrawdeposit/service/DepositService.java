@@ -9,7 +9,6 @@ public interface DepositService extends CrudService<Deposit, String> {
 
     Mono<BankAccount> getAccount(String idBankAccount);
 
-
     //Movement
-    Mono<MovementBankAccount> saveMovementBankAccount(String numberAccount, Float amount);
+    Mono<MovementBankAccount> saveMovementBankAccount(String numberAccount, Double amount);
 }

@@ -2,6 +2,7 @@ package com.nttdata.withdrawdeposit.service.impl;
 
 import com.nttdata.withdrawdeposit.config.WebClientConfig;
 import com.nttdata.withdrawdeposit.entity.Deposit;
+import com.nttdata.withdrawdeposit.entity.Withdraw;
 import com.nttdata.withdrawdeposit.model.BankAccount;
 import com.nttdata.withdrawdeposit.model.MovementBankAccount;
 import com.nttdata.withdrawdeposit.repository.DepositRepository;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.Collections;
 import java.util.Date;
 
 @Service
@@ -33,7 +35,7 @@ public class DepositServiceImpl implements DepositService {
         Mono<BankAccount> account = webClientConfig.getBankAccountById(entity.getIdBankAccount());
         return account.flatMap(ac -> {
             Calculate cal = (monto, saldo) ->saldo+monto;
-            Float nuevoSaldo = cal.Calcular(entity.getAmount(), ac.getBalance());
+            Double nuevoSaldo = cal.Calcular(entity.getAmount(), ac.getBalance());
             System.out.println(nuevoSaldo);
             ac.setBalance(nuevoSaldo);
             entity.setStatus(true);
@@ -67,17 +69,12 @@ public class DepositServiceImpl implements DepositService {
     }
 
     @Override
-    public Mono<Deposit> findById(String id) {
-        return depositRepository.findById(id);
-    }
-
-    @Override
     public Mono<BankAccount> getAccount(String idBankAccount) {
         return webClientConfig.getBankAccountById(idBankAccount);
     }
 
     @Override
-    public Mono<MovementBankAccount> saveMovementBankAccount(String numberAccount, Float amount) {
+    public Mono<MovementBankAccount> saveMovementBankAccount(String numberAccount, Double amount) {
         System.out.println("Se llegó a la función guardar movimiento");
         MovementBankAccount movementBankAccount = new MovementBankAccount();
         movementBankAccount.setAmount(amount);
